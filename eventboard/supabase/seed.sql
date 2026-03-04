@@ -1,0 +1,29 @@
+-- EventBoard MVP — Seed Data for Testing
+-- Run AFTER 001_init.sql and after creating a test user in Supabase Auth
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- SAMPLE EVENT (replace user_id with your Supabase auth user UUID)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- INSERT INTO public.events (id, user_id, title, description, event_date, location, color, status, settings)
+-- VALUES (
+--   'demo2026',
+--   '<YOUR_USER_UUID>',
+--   'Demo EventBoard 2026',
+--   'Sự kiện thử nghiệm EventBoard MVP',
+--   '2026-03-15 09:00:00+07',
+--   'TP. Hồ Chí Minh',
+--   '#6C63FF',
+--   'active',
+--   '{
+--     "features_enabled": {
+--       "moment_wall": true,
+--       "energy_bar": true,
+--       "lucky_spin": true,
+--       "live_poll": true,
+--       "qa_session": true
+--     },
+--     "form_fields": ["name", "phone"],
+--     "form_gate": "on_entry"
+--   }'
+-- );
