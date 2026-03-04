@@ -1,0 +1,19 @@
+{
+    "name": "toonify",
+    "description": "Image toonification and cartoon-style transformation",
+    "category": "media",
+    "mcpServers": {
+        "toonify": {
+            "type": "stdio",
+            "command": "toonify-mcp",
+            "args": [],
+            "env": {},
+            "disabled": false
+        }
+    },
+    "requires": "toonify-mcp binary installed",
+    "tools": [
+        "toonify"
+    ],
+    "recommended": false
+}

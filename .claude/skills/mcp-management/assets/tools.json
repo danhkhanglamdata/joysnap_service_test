@@ -1,0 +1,647 @@
+[
+  {
+    "serverName": "memory",
+    "name": "create_entities",
+    "description": "Create multiple new entities in the knowledge graph",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the entity"
+              },
+              "entityType": {
+                "type": "string",
+                "description": "The type of the entity"
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "An array of observation contents associated with the entity"
+              }
+            },
+            "required": [
+              "name",
+              "entityType",
+              "observations"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "entities"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "create_relations",
+    "description": "Create multiple new relations between entities in the knowledge graph. Relations should be in active voice",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "description": "The name of the entity where the relation starts"
+              },
+              "to": {
+                "type": "string",
+                "description": "The name of the entity where the relation ends"
+              },
+              "relationType": {
+                "type": "string",
+                "description": "The type of the relation"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "relationType"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "relations"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "add_observations",
+    "description": "Add new observations to existing entities in the knowledge graph",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entityName": {
+                "type": "string",
+                "description": "The name of the entity to add the observations to"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "An array of observation contents to add"
+              }
+            },
+            "required": [
+              "entityName",
+              "contents"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "observations"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "delete_entities",
+    "description": "Delete multiple entities and their associated relations from the knowledge graph",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entityNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "An array of entity names to delete"
+        }
+      },
+      "required": [
+        "entityNames"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "delete_observations",
+    "description": "Delete specific observations from entities in the knowledge graph",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "deletions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entityName": {
+                "type": "string",
+                "description": "The name of the entity containing the observations"
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "An array of observations to delete"
+              }
+            },
+            "required": [
+              "entityName",
+              "observations"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "deletions"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "delete_relations",
+    "description": "Delete multiple relations from the knowledge graph",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "description": "The name of the entity where the relation starts"
+              },
+              "to": {
+                "type": "string",
+                "description": "The name of the entity where the relation ends"
+              },
+              "relationType": {
+                "type": "string",
+                "description": "The type of the relation"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "relationType"
+            ],
+            "additionalProperties": false
+          },
+          "description": "An array of relations to delete"
+        }
+      },
+      "required": [
+        "relations"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "read_graph",
+    "description": "Read the entire knowledge graph",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "search_nodes",
+    "description": "Search for nodes in the knowledge graph based on a query",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The search query to match against entity names, types, and observation content"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "memory",
+    "name": "open_nodes",
+    "description": "Open specific nodes in the knowledge graph by their names",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "An array of entity names to retrieve"
+        }
+      },
+      "required": [
+        "names"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "sequential-thinking",
+    "name": "sequentialthinking",
+    "description": "A detailed tool for dynamic and reflective problem-solving through thoughts. This tool helps analyze problems through a flexible thinking process that can adapt and evolve. Each thought can build on, question, or revise previous insights as understanding deepens.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "thought": {
+          "type": "string",
+          "description": "Your current thinking step"
+        },
+        "nextThoughtNeeded": {
+          "type": "boolean",
+          "description": "Whether another thought step is needed"
+        },
+        "thoughtNumber": {
+          "type": "integer",
+          "description": "Current thought number",
+          "minimum": 1
+        },
+        "totalThoughts": {
+          "type": "integer",
+          "description": "Estimated total thoughts needed",
+          "minimum": 1
+        },
+        "isRevision": {
+          "type": "boolean",
+          "description": "Whether this revises previous thinking"
+        },
+        "revisesThought": {
+          "type": "integer",
+          "description": "Which thought is being reconsidered",
+          "minimum": 1
+        },
+        "branchFromThought": {
+          "type": "integer",
+          "description": "Branching point thought number",
+          "minimum": 1
+        },
+        "branchId": {
+          "type": "string",
+          "description": "Branch identifier"
+        },
+        "needsMoreThoughts": {
+          "type": "boolean",
+          "description": "If more thoughts are needed"
+        }
+      },
+      "required": [
+        "thought",
+        "nextThoughtNeeded",
+        "thoughtNumber",
+        "totalThoughts"
+      ]
+    }
+  },
+  {
+    "serverName": "context7",
+    "name": "resolve-library-id",
+    "description": "Resolves a package/product name to a Context7-compatible library ID and returns a list of matching libraries. You MUST call this function before 'get-library-docs' to obtain a valid Context7-compatible library ID.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "libraryName": {
+          "type": "string",
+          "description": "Library name to search for and retrieve a Context7-compatible library ID."
+        }
+      },
+      "required": [
+        "libraryName"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "serverName": "context7",
+    "name": "get-library-docs",
+    "description": "Fetches up-to-date documentation for a library. You must call 'resolve-library-id' first to obtain the exact Context7-compatible library ID required to use this tool.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "context7CompatibleLibraryID": {
+          "type": "string",
+          "description": "Exact Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js') retrieved from 'resolve-library-id'."
+        },
+        "topic": {
+          "type": "string",
+          "description": "Topic to focus documentation on (e.g., 'hooks', 'routing')."
+        },
+        "tokens": {
+          "type": "number",
+          "description": "Maximum number of tokens of documentation to retrieve (default: 5000)."
+        }
+      },
+      "required": [
+        "context7CompatibleLibraryID"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "serverName": "perplexity-ask",
+    "name": "perplexity_ask",
+    "description": "Search the web and get AI-powered answers using Perplexity Sonar API. Best for research, finding current information, and getting comprehensive answers with citations.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "system",
+                  "user",
+                  "assistant"
+                ],
+                "description": "Role of the message sender"
+              },
+              "content": {
+                "type": "string",
+                "description": "Content of the message"
+              }
+            },
+            "required": [
+              "role",
+              "content"
+            ]
+          },
+          "description": "Array of conversation messages"
+        }
+      },
+      "required": [
+        "messages"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "postman",
+    "name": "list_workspaces",
+    "description": "List all Postman workspaces accessible to the user.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "postman",
+    "name": "get_collection",
+    "description": "Get details of a specific Postman collection including requests and folders.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "string",
+          "description": "The ID of the collection to retrieve"
+        }
+      },
+      "required": [
+        "collectionId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "postman",
+    "name": "create_collection",
+    "description": "Create a new Postman collection in a workspace.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workspaceId": {
+          "type": "string",
+          "description": "The workspace ID to create the collection in"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the new collection"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the collection"
+        }
+      },
+      "required": [
+        "workspaceId",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "postman",
+    "name": "run_collection",
+    "description": "Run all requests in a Postman collection and return test results.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "string",
+          "description": "The ID of the collection to run"
+        },
+        "environmentId": {
+          "type": "string",
+          "description": "Optional environment ID to use for the run"
+        }
+      },
+      "required": [
+        "collectionId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "postman",
+    "name": "create_environment",
+    "description": "Create a new Postman environment with variables.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "workspaceId": {
+          "type": "string",
+          "description": "The workspace ID to create the environment in"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the environment"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            }
+          },
+          "description": "Environment variables"
+        }
+      },
+      "required": [
+        "workspaceId",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "figma",
+    "name": "get_file",
+    "description": "Get information about a Figma file including pages and components.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fileKey": {
+          "type": "string",
+          "description": "The Figma file key (from URL)"
+        }
+      },
+      "required": [
+        "fileKey"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "figma",
+    "name": "get_node",
+    "description": "Get details of a specific node (frame, component, etc.) in a Figma file.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fileKey": {
+          "type": "string",
+          "description": "The Figma file key"
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "The node ID to retrieve"
+        }
+      },
+      "required": [
+        "fileKey",
+        "nodeId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "figma",
+    "name": "get_styles",
+    "description": "Get all styles (colors, typography, effects) from a Figma file.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fileKey": {
+          "type": "string",
+          "description": "The Figma file key"
+        }
+      },
+      "required": [
+        "fileKey"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "figma",
+    "name": "get_components",
+    "description": "Get all components and their variants from a Figma file.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fileKey": {
+          "type": "string",
+          "description": "The Figma file key"
+        }
+      },
+      "required": [
+        "fileKey"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "serverName": "figma",
+    "name": "export_node",
+    "description": "Export a node as an image (PNG, SVG, PDF, JPG).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fileKey": {
+          "type": "string",
+          "description": "The Figma file key"
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "The node ID to export"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "png",
+            "svg",
+            "pdf",
+            "jpg"
+          ],
+          "description": "Export format"
+        },
+        "scale": {
+          "type": "number",
+          "description": "Scale factor for export (1-4)"
+        }
+      },
+      "required": [
+        "fileKey",
+        "nodeId",
+        "format"
+      ],
+      "additionalProperties": false
+    }
+  }
+]

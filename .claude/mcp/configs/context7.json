@@ -1,0 +1,28 @@
+{
+    "name": "context7",
+    "description": "Library documentation lookup",
+    "category": "core",
+    "mcpServers": {
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp"
+            ],
+            "env": {
+                "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+            },
+            "disabled": false,
+            "autoApprove": [
+                "get-library-docs",
+                "resolve-library-id"
+            ]
+        }
+    },
+    "requires": "CONTEXT7_API_KEY env var",
+    "tools": [
+        "resolve-library-id",
+        "get-library-docs"
+    ],
+    "recommended": true
+}

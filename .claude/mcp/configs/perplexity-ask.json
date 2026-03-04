@@ -1,0 +1,25 @@
+{
+    "name": "perplexity-ask",
+    "description": "AI-powered web search",
+    "category": "extended",
+    "mcpServers": {
+        "perplexity-ask": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "server-perplexity-ask"
+            ],
+            "env": {
+                "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
+            },
+            "disabled": false,
+            "autoApprove": [
+                "perplexity_ask"
+            ]
+        }
+    },
+    "requires": "PERPLEXITY_API_KEY env var",
+    "tools": [
+        "perplexity_ask"
+    ]
+}

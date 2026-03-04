@@ -1,0 +1,26 @@
+{
+    "name": "chrome-devtools",
+    "description": "Quick browser inspection via Chrome DevTools Protocol",
+    "category": "browser",
+    "mcpServers": {
+        "chrome-devtools": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "chrome-devtools-mcp@latest"
+            ],
+            "disabled": false
+        }
+    },
+    "tools": [
+        "take_snapshot",
+        "take_screenshot",
+        "click",
+        "fill",
+        "navigate_page",
+        "evaluate_script",
+        "list_console_messages",
+        "list_network_requests"
+    ],
+    "when_to_use": "Quick inspection, debugging, screenshots"
+}

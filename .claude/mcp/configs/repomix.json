@@ -1,0 +1,26 @@
+{
+    "name": "repomix",
+    "description": "Repository packaging for AI analysis",
+    "category": "tools",
+    "mcpServers": {
+        "repomix": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "repomix",
+                "--mcp"
+            ]
+        }
+    },
+    "tools": [
+        "pack_codebase",
+        "pack_remote_repository",
+        "generate_skill",
+        "attach_packed_output",
+        "read_repomix_output",
+        "grep_repomix_output",
+        "file_system_read_file",
+        "file_system_read_directory"
+    ],
+    "when_to_use": "Package codebase for AI analysis, code reviews, documentation generation"
+}

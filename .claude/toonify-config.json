@@ -1,0 +1,10 @@
+{
+    "enabled": true,
+    "minTokensThreshold": 50,
+    "minSavingsThreshold": 30,
+    "skipToolPatterns": [
+        "Bash",
+        "Write",
+        "Edit"
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "name": "magic",
+    "description": "AI-powered UI component generation",
+    "category": "extended",
+    "mcpServers": {
+        "magic": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@21st-dev/magic@latest"
+            ],
+            "env": {
+                "API_KEY": "${MAGIC_21ST_DEV_API_KEY}"
+            }
+        }
+    },
+    "requires": "MAGIC_21ST_DEV_API_KEY env var",
+    "tools": [
+        "21st_magic_component_builder",
+        "21st_magic_component_inspiration",
+        "21st_magic_component_refiner",
+        "logo_search"
+    ]
+}

@@ -1,0 +1,30 @@
+# Blind ignore patterns
+# One pattern per line, # for comments
+# These directories will be blocked from file operations
+
+# Package managers
+node_modules
+
+# Python
+__pycache__
+venv
+.venv
+env
+# Note: .env FILE is handled by secrets-aware hook (not blind)
+# .env DIRECTORY (Python convention) is rare - use .venv instead
+
+# Version control
+# .git  # Unblocked to allow git operations (rm lock files, etc.)
+
+# Build outputs
+dist
+build
+out
+.next
+.nuxt
+
+# Cache directories
+.cache
+.turbo
+.parcel-cache
+!.env.example

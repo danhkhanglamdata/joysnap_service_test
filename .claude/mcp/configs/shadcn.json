@@ -1,0 +1,24 @@
+{
+    "name": "shadcn",
+    "description": "shadcn/ui component management",
+    "category": "tools",
+    "mcpServers": {
+        "shadcn": {
+            "command": "npx",
+            "args": [
+                "shadcn@latest",
+                "mcp"
+            ]
+        }
+    },
+    "tools": [
+        "get_project_registries",
+        "list_items_in_registries",
+        "search_items_in_registries",
+        "view_items_in_registries",
+        "get_item_examples_from_registries",
+        "get_add_command_for_items",
+        "get_audit_checklist"
+    ],
+    "when_to_use": "Add/manage shadcn/ui components in React projects"
+}

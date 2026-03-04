@@ -1,0 +1,24 @@
+{
+    "name": "knowledge-graph",
+    "description": "Local knowledge graph for codebase analysis",
+    "category": "tools",
+    "mcpServers": {
+        "knowledge-graph": {
+            "type": "sse",
+            "url": "http://localhost:27495/mcp/sse",
+            "approvedTools": true
+        }
+    },
+    "note": "Requires local knowledge-graph server running on port 27495",
+    "tools": [
+        "search_codebase_definitions",
+        "get_references",
+        "read_definitions",
+        "repo_map",
+        "import_usage",
+        "get_definition",
+        "list_projects",
+        "index_project"
+    ],
+    "when_to_use": "Codebase indexing, symbol search, reference finding"
+}

@@ -1,0 +1,26 @@
+{
+    "name": "firecrawl-mcp",
+    "description": "Web scraping and crawling",
+    "category": "extended",
+    "mcpServers": {
+        "firecrawl-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "firecrawl-mcp"
+            ],
+            "env": {
+                "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+            }
+        }
+    },
+    "requires": "FIRECRAWL_API_KEY env var",
+    "tools": [
+        "firecrawl_scrape",
+        "firecrawl_crawl",
+        "firecrawl_map",
+        "firecrawl_search",
+        "firecrawl_extract",
+        "firecrawl_agent"
+    ]
+}

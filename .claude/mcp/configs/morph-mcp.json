@@ -1,0 +1,26 @@
+{
+    "name": "morph-mcp",
+    "description": "Morph LLM for fast file editing and codebase search",
+    "category": "development",
+    "mcpServers": {
+        "morph-mcp": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@morphllm/morphmcp"
+            ],
+            "env": {
+                "MORPH_API_KEY": "${MORPH_API_KEY}",
+                "ENABLED_TOOLS": "edit_file,warpgrep_codebase_search"
+            },
+            "disabled": false
+        }
+    },
+    "requires": "MORPH_API_KEY env var",
+    "tools": [
+        "edit_file",
+        "warpgrep_codebase_search"
+    ],
+    "recommended": true
+}

@@ -1,0 +1,23 @@
+{
+    "name": "sequential-thinking",
+    "description": "Multi-step reasoning for complex problems",
+    "category": "core",
+    "mcpServers": {
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+            "env": {},
+            "disabled": false,
+            "autoApprove": [
+                "sequentialthinking"
+            ]
+        }
+    },
+    "tools": [
+        "sequentialthinking"
+    ],
+    "recommended": true
+}

@@ -1,0 +1,12 @@
+{
+    "name": "figma",
+    "description": "Design-to-code integration (Figma hosted MCP)",
+    "category": "extended",
+    "mcpServers": {
+        "figma": {
+            "type": "http",
+            "url": "https://mcp.figma.com/mcp"
+        }
+    },
+    "note": "Uses Figma's hosted MCP server - no local installation required"
+}
