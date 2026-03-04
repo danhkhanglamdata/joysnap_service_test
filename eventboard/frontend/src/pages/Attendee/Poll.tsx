@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { api } from '../../lib/api'
 import { useSupabaseRealtime } from '../../hooks/useSupabaseRealtime'
-import type { Session } from '../../hooks/useSession'
 
 interface Activity {
   id: string
@@ -18,10 +17,9 @@ interface Results {
 interface PollProps {
   eventId: string
   activity: Activity
-  session: Session
 }
 
-export default function Poll({ eventId, activity, session }: PollProps) {
+export default function Poll({ eventId, activity }: PollProps) {
   const [voted, setVoted] = useState<number | null>(null)
   const [results, setResults] = useState<Results>({})
   const [total, setTotal] = useState(0)

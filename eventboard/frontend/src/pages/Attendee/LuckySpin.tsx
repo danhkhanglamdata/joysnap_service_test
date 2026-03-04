@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { api } from '../../lib/api'
 import type { Session } from '../../hooks/useSession'
 
@@ -61,7 +61,6 @@ export default function LuckySpin({ eventId, activity, session }: LuckySpinProps
     }
   }
 
-  const segmentAngle = prizes.length > 0 ? 360 / prizes.length : 360
   const colors = ['#6C63FF', '#FF6584', '#43E97B', '#F7971E', '#5B86E5', '#FC5C7D']
 
   return (

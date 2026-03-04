@@ -51,7 +51,7 @@ export default function EventEntry() {
   const { session, loading: sessionLoading, updateSession } = useSession(eventId)
 
   const [event, setEvent] = useState<EventInfo | null>(null)
-  const [activities, setActivities] = useState<Activity[]>([])
+  const [, setActivities] = useState<Activity[]>([])
   const [posts, setPosts] = useState<Post[]>([])
   const [energy, setEnergy] = useState<Energy | null>(null)
   const [activePoll, setActivePoll] = useState<Activity | null>(null)
@@ -219,12 +219,12 @@ export default function EventEntry() {
 
         {/* Live Poll */}
         {features.live_poll && activePoll && session && (
-          <Poll eventId={eventId!} activity={activePoll} session={session} />
+          <Poll eventId={eventId!} activity={activePoll} />
         )}
 
         {/* Q&A */}
         {features.qa_session && activeQA && session && (
-          <QA eventId={eventId!} activity={activeQA} session={session} />
+          <QA eventId={eventId!} activity={activeQA} />
         )}
       </div>
 

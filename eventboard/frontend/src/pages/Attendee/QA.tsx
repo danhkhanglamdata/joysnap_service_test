@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { api } from '../../lib/api'
-import type { Session } from '../../hooks/useSession'
 
 interface QAQuestion {
   id: string
@@ -22,10 +21,9 @@ interface Activity {
 interface QAProps {
   eventId: string
   activity: Activity
-  session: Session
 }
 
-export default function QA({ eventId, activity, session }: QAProps) {
+export default function QA({ eventId, activity }: QAProps) {
   const [questions, setQuestions] = useState<QAQuestion[]>([])
   const [text, setText] = useState('')
   const [anonymous, setAnonymous] = useState(false)
