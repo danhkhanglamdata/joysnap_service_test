@@ -11,6 +11,8 @@ type EventHandlers = {
   onPollStarted?: (payload: unknown) => void
   onPollUpdate?: (payload: unknown) => void
   onAnnouncement?: (payload: unknown) => void
+  onNewQuestion?: (payload: unknown) => void
+  onQuestionUpvote?: (payload: unknown) => void
 }
 
 /**
@@ -51,6 +53,12 @@ export function useSupabaseRealtime(eventId: string | undefined, handlers: Event
     }
     if (handlers.onAnnouncement) {
       channel.on('broadcast', { event: 'ANNOUNCEMENT' }, ({ payload }) => handlers.onAnnouncement!(payload))
+    }
+    if (handlers.onNewQuestion) {
+      channel.on('broadcast', { event: 'NEW_QUESTION' }, ({ payload }) => handlers.onNewQuestion!(payload))
+    }
+    if (handlers.onQuestionUpvote) {
+      channel.on('broadcast', { event: 'QUESTION_UPVOTE' }, ({ payload }) => handlers.onQuestionUpvote!(payload))
     }
 
     channel.subscribe()

@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { api } from '../../lib/api'
+import { useSupabaseRealtime } from '../../hooks/useSupabaseRealtime'
 
 interface QAQuestion {
   id: string
@@ -33,6 +34,21 @@ export default function QA({ eventId, activity }: QAProps) {
 
   const allowAnonymous = activity.config.allow_anonymous ?? true
   const allowUpvote = activity.config.allow_upvote ?? true
+
+  // Realtime handlers
+  const onNewQuestion = useCallback((payload: unknown) => {
+    const p = payload as { question: QAQuestion }
+    if (p.question.activity_id === activity.id) {
+      setQuestions(prev => [p.question, ...prev])
+    }
+  }, [activity.id])
+
+  const onQuestionUpvote = useCallback((payload: unknown) => {
+    const p = payload as { question_id: string; upvote_count: number }
+    setQuestions(prev => prev.map(q => q.id === p.question_id ? { ...q, upvote_count: p.upvote_count } : q))
+  }, [])
+
+  useSupabaseRealtime(eventId, { onNewQuestion, onQuestionUpvote })
 
   // TODO: could load questions from state, for MVP we just show submitted ones
   async function submit(e: React.FormEvent) {

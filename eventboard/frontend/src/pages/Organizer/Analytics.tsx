@@ -48,6 +48,15 @@ export default function Analytics() {
       // Refresh analytics on new post
       if (token && eventId) api.getAnalytics(token, eventId).then(a => setAnalytics(a as Analytics))
     },
+    onNewQuestion: () => {
+      // Refresh QA list on new question
+      if (token && eventId) api.listQA(token, eventId).then(q => setQuestions(q as QAQuestion[]))
+    },
+    onQuestionUpvote: (payload) => {
+      // Update upvote count in real-time
+      const p = payload as { question_id: string; upvote_count: number }
+      setQuestions(prev => prev.map(q => q.id === p.question_id ? { ...q, upvote_count: p.upvote_count } : q))
+    },
   })
 
   async function moderate(qId: string, status: string) {

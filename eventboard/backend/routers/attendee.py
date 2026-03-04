@@ -439,7 +439,10 @@ async def submit_question(
     if not result.data:
         raise HTTPException(status_code=500, detail="Failed to submit question")
 
-    return result.data[0]
+    question = result.data[0]
+    await broadcast(event_id, "NEW_QUESTION", {"question": question})
+
+    return question
 
 
 @router.post("/qa/{question_id}/upvote")
@@ -458,12 +461,16 @@ async def upvote_question(
         raise HTTPException(status_code=401, detail="Session token required")
 
     # Increment upvote count (using RPC or raw update)
-    result = db.table("qa_questions").select("upvote_count").eq("id", question_id).execute()
+    result = db.table("qa_questions").select("upvote_count", "activity_id").eq("id", question_id).execute()
     if not result.data:
         raise HTTPException(status_code=404, detail="Question not found")
 
     current_count = result.data[0]["upvote_count"]
+    activity_id = result.data[0]["activity_id"]
     db.table("qa_questions").update({"upvote_count": current_count + 1}).eq("id", question_id).execute()
+
+    # Broadcast upvote update
+    await broadcast(event_id, "QUESTION_UPVOTE", {"question_id": question_id, "upvote_count": current_count + 1})
 
     return {"ok": True, "upvote_count": current_count + 1}
 
