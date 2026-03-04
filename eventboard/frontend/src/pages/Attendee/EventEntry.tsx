@@ -113,6 +113,11 @@ export default function EventEntry() {
     showToast(p.message || '🎉 Đạt mục tiêu!')
   }, [])
 
+  const onEnergyMilestone = useCallback((payload: unknown) => {
+    const p = payload as { pct: number; message: string }
+    showToast(p.message || `🎯 Đạt ${p.pct}%!`)
+  }, [])
+
   const onSpinOpened = useCallback((payload: unknown) => {
     const p = payload as { msg: string }
     showToast(p.msg || '🎰 Vòng quay đã mở!')
@@ -140,6 +145,7 @@ export default function EventEntry() {
     onNewPost,
     onEnergyUpdate,
     onEnergyFull,
+    onEnergyMilestone,
     onSpinOpened,
     onActivityStarted,
     onPollStarted,

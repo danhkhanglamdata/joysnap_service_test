@@ -15,14 +15,23 @@ export default function EnergyBar({ energy }: EnergyBarProps) {
   const prevPctRef = useRef<number>(0)
 
   useEffect(() => {
-    if (energy.pct >= 100 && prevPctRef.current < 100) {
-      // Confetti when hitting 100%!
-      confetti({
-        particleCount: 150,
-        spread: 80,
-        origin: { y: 0.6 },
-      })
+    const prev = prevPctRef.current
+
+    // Check milestone hits: 50%, 80%, 100%
+    const milestones = [50, 80, 100]
+    for (const m of milestones) {
+      if (energy.pct >= m && prev < m) {
+        const isFull = m === 100
+        confetti({
+          particleCount: isFull ? 150 : 80,
+          spread: isFull ? 80 : 60,
+          origin: { y: 0.6 },
+          ...(isFull ? {} : { colors: ['#f59e0b', '#fbbf24', '#fb923c'] }),
+        })
+        break // Only one confetti per update
+      }
     }
+
     prevPctRef.current = energy.pct
   }, [energy.pct])
 
