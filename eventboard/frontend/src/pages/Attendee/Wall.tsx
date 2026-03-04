@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { api } from '../../lib/api'
+import { useSupabaseRealtime } from '../../hooks/useSupabaseRealtime'
 import type { Session } from '../../hooks/useSession'
 
 const VIBES = ['🔥', '😂', '😭', '✨', '👏', '🎉']
@@ -22,14 +23,41 @@ export default function Wall({ eventId, posts, session }: WallProps) {
   const [content, setContent] = useState('')
   const [vibe, setVibe] = useState('🔥')
   const [posting, setPosting] = useState(false)
+  const [localPosts, setLocalPosts] = useState<Post[]>([])
+
+  // Sync external posts changes
+  useEffect(() => {
+    setLocalPosts(posts)
+  }, [posts])
+
+  // Realtime: listen for new posts
+  const onNewPost = useCallback((payload: unknown) => {
+    const p = payload as { post: Post; energy?: { current: number } }
+    setLocalPosts(prev => [p.post, ...prev.slice(0, 49)])
+  }, [])
+
+  useSupabaseRealtime(eventId, { onNewPost })
 
   async function postMoment() {
     if (!content.trim() && vibe === '🔥') return
+
+    // Optimistic update
+    const tempPost: Post = {
+      id: `temp_${Date.now()}`,
+      author_name: session?.name || 'Bạn',
+      content,
+      vibe_emoji: vibe,
+      created_at: new Date().toISOString(),
+    }
+    setLocalPosts(prev => [tempPost, ...prev])
+
     setPosting(true)
     try {
       await api.createPost(eventId, { content, vibe_emoji: vibe })
       setContent('')
     } catch (err) {
+      // Remove optimistic post on error
+      setLocalPosts(prev => prev.filter(p => p.id !== tempPost.id))
       console.error(err)
     } finally {
       setPosting(false)
@@ -74,10 +102,10 @@ export default function Wall({ eventId, posts, session }: WallProps) {
 
       {/* Feed */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxHeight: 400, overflowY: 'auto' }}>
-        {posts.length === 0 && (
+        {localPosts.length === 0 && (
           <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: 24 }}>Chưa có bài đăng nào. Hãy là người đầu tiên! 🎉</p>
         )}
-        {posts.map(post => (
+        {localPosts.map(post => (
           <div key={post.id} style={{ display: 'flex', gap: 10, padding: 10, background: 'var(--bg)', borderRadius: 8 }}>
             <span style={{ fontSize: 28, flexShrink: 0 }}>{post.vibe_emoji}</span>
             <div>
